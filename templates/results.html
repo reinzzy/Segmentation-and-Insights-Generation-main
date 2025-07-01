@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hasil Analisis Segmentasi</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="mb-4">Hasil Analisis Segmentasi Data</h2>
+
+        <h3>Ringkasan Klaster</h3>
+        <table class="table table-bordered">
+            <thead class="thead-light">
+                <tr>
+                    <th>Klaster</th>
+                    <th>Rata-rata Usia</th>
+                    <th>Rata-rata Jarak Penerbangan</th>
+                    <th>Rata-rata Kenyamanan Kursi</th>
+                    <th>Rata-rata Kebersihan</th>
+                    <th>Jumlah Data</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cluster, row in analysis_results.iterrows() %}
+                <tr>
+                    <td>{{ cluster }}</td>
+                    <td>{{ row['Rata-rata Usia']|round(2) }}</td>
+                    <td>{{ row['Rata-rata Jarak Penerbangan']|round(2) }}</td>
+                    <td>{{ row['Rata-rata Kenyamanan Kursi']|round(2) }}</td>
+                    <td>{{ row['Rata-rata Kebersihan']|round(2) }}</td>
+                    <td>{{ row['Jumlah Data'] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <h3>Visualisasi</h3>
+        <div class="row">
+            {% for plot in plots %}
+            <div class="col-md-6 mb-4">
+                <img src="data:image/png;base64,{{ plot }}" class="img-fluid" alt="Gambar Visualisasi">
+            </div>
+            {% endfor %}
+        </div>
+
+        <a href="{{ url_for('index') }}" class="btn btn-secondary mt-4">Unggah File Lain</a>
+    </div>
+</body>
+</html>
